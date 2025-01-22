@@ -11,7 +11,7 @@ const PostSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
+        required: [true, 'User is required']
     },
     image: String,
     created_at: {
