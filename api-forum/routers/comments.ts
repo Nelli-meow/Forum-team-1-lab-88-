@@ -47,6 +47,8 @@ commentsRouter.post('/', auth, async (req: express.Request, res: express.Respons
 commentsRouter.get('/', auth,async (req: express.Request, res: express.Response, next) => {
     const postIdQuery = req.query.post_id;
 
+
+
     try {
         const filter = postIdQuery ? {post: postIdQuery} : {};
         const comments = await Comment.find(filter);
