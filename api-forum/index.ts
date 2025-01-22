@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import mongoDb from "./mongoDb";
 import userRouter from "./routers/users";
+import commentsRouter from "./routers/comments";
 
 const app = express();
 const port =  8000;
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/users', userRouter);
+app.use('/comments', commentsRouter);
 
 const run = async () => {
 
