@@ -3,3 +3,10 @@ export interface UserData {
     password: string;
     token: string;
 }
+
+export interface IComment {
+    _id: string;
+    post: string;
+    user: string;
+    text: string;
+}
