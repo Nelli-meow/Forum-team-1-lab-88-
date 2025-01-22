@@ -1,5 +1,4 @@
-import mongoose, {Types} from 'mongoose';
-import User from "./User";
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -13,19 +12,11 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-
-        validate: {
-            validator: async (value: Types.ObjectId) => {
-                const user = await User.findById(value);
-                return Boolean(user);
-            },
-            message: 'User does not exist!',
-        },
     },
     image: String,
     created_at: {
-        type: Date,
-        default: Date.now,
+        type: String,
+        default: () => new Date().toISOString(),
     },
 });
 
