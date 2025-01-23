@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IPost } from '../../types';
-import { getOnePost, getPosts } from './PostsThunk.ts';
+import { createPost, getOnePost, getPosts } from './PostsThunk.ts';
 import { RootState } from '../../app/store.ts';
 
 interface PostInterface {
@@ -29,6 +29,7 @@ export const selectPosts = (state: RootState) => state.posts.posts;
 export const selectPost = (state: RootState) => state.posts.post;
 export const selectGetPostsLoading = (state: RootState) => state.posts.loadings.getPostsLoading;
 export const selectOneGetPostLoading = (state: RootState) => state.posts.loadings.getOnePostLoading;
+export const selectAddPostLoading = (state: RootState) => state.posts.loadings.addPostLoading;
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -62,6 +63,14 @@ const postsSlice = createSlice({
         state.loadings.getOnePostLoading = false;
         state.error = true;
       });
+
+    builder.addCase(createPost.pending, (state) => {
+      state.loadings.addPostLoading = true;
+    }).addCase(createPost.fulfilled, (state) => {
+      state.loadings.addPostLoading = false;
+    }).addCase(createPost.rejected, (state) => {
+      state.loadings.addPostLoading = false;
+    });
   }
 });
 

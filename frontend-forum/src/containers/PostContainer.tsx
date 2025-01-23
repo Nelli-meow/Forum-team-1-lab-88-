@@ -26,7 +26,7 @@ const PostContainer = () => {
         <Container sx={{backgroundColor: 'rgba(245,245,245,0.87)', borderRadius: '5px'}}>
           <Box sx={{ width: '100%', padding: '20px'}}>
             <Typography level="h1" sx={{textAlign: 'center'}}>{post.title}</Typography>
-            {post.image !== null ?
+            {post.image ?
               <Box sx={{margin: '20px 0', textAlign: 'center'}}>
                 <img
                   style={{width: '50%', height: '50%', borderRadius: '10px'}}

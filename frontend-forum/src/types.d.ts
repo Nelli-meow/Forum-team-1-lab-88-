@@ -43,3 +43,9 @@ export interface IPost {
   description?: string | null;
   created_at: string;
 }
+
+export interface PostMutation {
+  title: string;
+  description: string;
+  image: string | null;
+}

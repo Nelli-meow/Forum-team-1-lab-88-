@@ -31,17 +31,12 @@ postRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) 
             res.status(401).send({error: 'User not found!'});
             return;
         }
-        const image = req.file?.filename || null;
-        const {description} = req.body;
-        if (!description && !image) {
-            res.status(400).send({error: 'Description or image is required!'});
-            return;
-        }
+
         const post = new Post({
-            title: req.body.title,
+            title: expressReq.body.title,
             user: user._id,
-            description: description || null,
-            image: image,
+            description: expressReq.body.description,
+            image: req.file ? 'images' + req.file.filename : null,
         });
         await post.save();
         res.send(post);
