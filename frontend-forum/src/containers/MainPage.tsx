@@ -1,30 +1,29 @@
-import { useAppSelector } from '../app/hooks.ts';
-import { Box, Typography } from '@mui/material';
-import { selectUser } from '../features/users/UsersSlice.ts';
-import Header from '../components/Header/Header.tsx';
+import { useAppDispatch, useAppSelector } from '../app/hooks.ts';
+import { Box, Container, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { getPosts } from '../features/posts/PostsThunk.ts';
+import Posts from '../features/posts/components/Posts/Posts.tsx';
+import { selectGetPostsLoading, selectPosts } from '../features/posts/PostsSlice.ts';
+import Loading from '../components/UI/Loading/Loading.tsx';
 
 const MainPage = () => {
-  const user = useAppSelector(selectUser);
+  const posts = useAppSelector(selectPosts);
+  const loading = useAppSelector(selectGetPostsLoading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <>
-      <Header/>
-      <Box sx={{ flexGrow: 1 }}>
-        {
-          user ? <p>ЕСЛИ ЮЗЕР ЕСТЬ ТО СЮДА УЖЕ КОМПОНЕНТ С ПОСТАМИ ЙОУ ДА</p> :<Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-            }}
-          >
-            <Typography variant="body1">
-              Login or create an account :)
-            </Typography>
+      {loading ? <Loading /> :
+        <Container>
+          <Box sx={{ flexGrow: 1 }}>
+            {posts.length > 0 ? <Posts posts={posts}/> : <Typography variant="body1" sx={{width: '100%', fontSize: '80px', color: 'white', marginTop: '15%', textAlign: 'center'}}>No posts yet!</Typography>}
           </Box>
-        }
-      </Box>
+        </Container>
+      }
     </>
   );
 };

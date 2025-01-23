@@ -1,10 +1,10 @@
 import { Button, Menu, MenuItem } from '@mui/material';
-import { IUser } from '../../types';
+import { IUser } from '../../../types';
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../app/hooks.ts';
-import { unsetUser } from '../../features/users/UsersSlice.ts';
-import { useNavigate } from 'react-router-dom';
-import {logout} from '../../features/users/UsersThunk.ts';
+import { useAppDispatch } from '../../../app/hooks.ts';
+import { unsetUser } from '../../../features/users/UsersSlice.ts';
+import { NavLink, useNavigate } from 'react-router-dom';
+import {logout} from '../../../features/users/UsersThunk.ts';
 
 interface Props {
   user: IUser;
@@ -36,6 +36,8 @@ const UserMenu: React.FC<Props> = ({user}) => {
         color="inherit">
         Hello, {user.username}!
       </Button>
+      <Button variant="outlined" color={'inherit'} to={'/posts/addNewPost'} component={NavLink} sx={{margin: '0 20px'}}>Add new post</Button>
+      <Button variant="outlined" color={'inherit'} onClick={handleLogout}>Logout</Button>
       <Menu
         anchorEl={anchorEl}
         keepMounted
