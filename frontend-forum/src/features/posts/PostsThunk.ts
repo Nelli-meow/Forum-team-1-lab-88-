@@ -19,6 +19,6 @@ export const getOnePost = createAsyncThunk<IPost, string>(
 export const createPost = createAsyncThunk<void, {post: PostMutation, token:string}>(
   'posts/create',
   async ({post, token}) => {
-    await axiosApi.post('/posts', {post}, {headers: {'Authorization': token}});
+    await axiosApi.post('/posts', {...post}, {headers: {'Authorization': token}});
   }
 );

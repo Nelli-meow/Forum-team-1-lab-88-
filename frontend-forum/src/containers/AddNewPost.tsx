@@ -1,5 +1,5 @@
 import {Typography} from '@mui/material';
-import NewPostForm from './NewPostForm.tsx';
+import NewPostForm from '../features/posts/components/NewPostForm/NewPostForm.tsx';
 import {useAppDispatch, useAppSelector} from '../app/hooks.ts';
 import {createPost} from '../features/posts/PostsThunk.ts';
 import {PostMutation} from '../types';
@@ -23,7 +23,7 @@ const AddNewPost = () => {
     return (
         <>
             <Typography variant="body1"
-                        sx={{width: '100%', fontSize: '80px', color: 'white', marginTop: '15%', textAlign: 'center'}}>New
+                        sx={{width: '100%', fontSize: '80px', color: 'white', marginTop: '20px', textAlign: 'center'}}>New
                 Post</Typography>
             <NewPostForm isLoading={isCreating} onSubmit={onFormSubmit}/>
         </>

@@ -7,9 +7,10 @@ interface  Props {
   name: string;
   label: string;
   getImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  descriptionLength: boolean;
 }
 
-const FileFormInput:React.FC<Props> = ({label, name, getImage}) => {
+const FileFormInput:React.FC<Props> = ({label, name, getImage, descriptionLength = false}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileImage, setFileImage] = useState('');
 
@@ -57,6 +58,7 @@ const FileFormInput:React.FC<Props> = ({label, name, getImage}) => {
           type="button"
           onClick={inputActivate}
           color="success"
+          disabled={descriptionLength}
         >
           Get file
         </Button>
