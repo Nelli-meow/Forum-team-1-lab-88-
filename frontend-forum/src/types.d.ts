@@ -15,7 +15,7 @@ export interface LoginMutation {
 }
 
 export interface ValidationError {
-  error: {
+  errors: {
     [key: string]: {
       message: string;
       name: string;
@@ -33,4 +33,13 @@ export interface GlobalError {
 export interface RegisterResponse {
   user: IUser;
   message: string;
+}
+
+export interface IPost {
+  _id: string;
+  title: string;
+  user: IUser;
+  image?: string | null;
+  description?: string | null;
+  created_at: string;
 }

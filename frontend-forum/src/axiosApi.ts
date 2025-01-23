@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { mainApiUrl } from './globalConstants.ts';
 
 const axiosApi = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: mainApiUrl,
 });
 
 export default axiosApi;

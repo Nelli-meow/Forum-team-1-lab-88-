@@ -1,0 +1,1 @@
+export const mainApiUrl = 'http://localhost:8000';
