@@ -64,8 +64,6 @@ postRouter.get('/', async (_req, res, next) => {
             })
         );
 
-        console.log(postsWithCommentCount);
-
         res.send(postsWithCommentCount);
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {

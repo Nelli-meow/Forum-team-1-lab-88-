@@ -48,6 +48,11 @@ const Post:React.FC<Props> = ({post}) => {
             <CalendarMonthIcon fontSize={'small'}/>
             <Typography noWrap sx={{letterSpacing: -0.25, color: 'text.secondary', fontSize: 15, marginLeft: '8px'}}>{dayjs(post.created_at).format('DD.MM.YYYY')}</Typography>
           </Box>
+          <Box sx={{display: 'flex', alignItems: 'center'}}>
+            <Typography noWrap sx={{ letterSpacing: -0.25, color: 'text.secondary', fontSize: 18, marginLeft: '10px' }}>
+              Comments: <b>{post.commentCount ?? 0}</b>
+            </Typography>
+          </Box>
         </Box>
         <Button variant="text" onClick={() => navigate(`/posts/${post._id}`)} sx={{color: 'green', fontSize: '16px', display: 'flex', justifyContent: 'start', wordWrap: 'break-word', '&:hover': {color: 'rgb(49,172,239)'}, marginTop: '10px'}}>{post.title}</Button>
         <Typography noWrap sx={{letterSpacing: -0.25, color: 'text.secondary', fontSize: 18, marginLeft: '10px'}}>By: <b>{post.user.username}</b></Typography>
