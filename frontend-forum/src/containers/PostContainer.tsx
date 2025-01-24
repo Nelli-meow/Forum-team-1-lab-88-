@@ -43,18 +43,17 @@ const PostContainer = () => {
         <Container sx={{backgroundColor: 'rgba(245,245,245,0.87)', borderRadius: '5px'}}>
           <Box sx={{ width: '100%', padding: '20px'}}>
             <Typography level="h1" sx={{textAlign: 'center'}}>{post.title}</Typography>
-            {post.image ?
-              <Box sx={{margin: '20px 0', textAlign: 'center'}}>
+            {post.image && (
+              <Box sx={{ margin: '20px 0', textAlign: 'center' }}>
                 <img
-                  style={{width: '50%', height: '50%', borderRadius: '10px'}}
-                  srcSet={mainApiUrl + '/' + post.image}
-                  src={mainApiUrl + '/' + post.image}
+                  style={{ width: '50%', height: '50%', borderRadius: '10px' }}
+                  src={`${mainApiUrl}/${post.image}`}
                   alt={post.title}
                   loading="lazy"
                 />
               </Box>
-              : <Typography sx={{margin: '20px 10px'}}>{post.description}</Typography>
-            }
+            )}
+            <Typography sx={{margin: '20px 10px'}}>{post.description}</Typography>
           </Box>
           <Box sx={{padding: '10px', marginBottom: '40px'}}>
             <Typography level="h3" sx={{textAlign: 'center', margin: '20px 0'}}>Comments</Typography>
