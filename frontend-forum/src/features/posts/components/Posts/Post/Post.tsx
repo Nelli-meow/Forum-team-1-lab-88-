@@ -12,6 +12,7 @@ import { Box, Button } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useNavigate } from 'react-router-dom';
+import CommentIcon from '@mui/icons-material/Comment';
 
 interface Props {
   post: IPost;
@@ -28,7 +29,7 @@ const Post:React.FC<Props> = ({post}) => {
   return (
     <Card orientation="horizontal" variant="outlined" sx={{ width: '80%', margin: '20px auto', backgroundColor: 'rgba(245,245,245,0.87)' }}>
       <CardOverflow>
-        <AspectRatio ratio="1" sx={{ width: '150px'}}>
+        <AspectRatio ratio="1" sx={{ width: '175px'}}>
           <img
             style={{height: '100%'}}
             src={postImage}
@@ -48,14 +49,13 @@ const Post:React.FC<Props> = ({post}) => {
             <CalendarMonthIcon fontSize={'small'}/>
             <Typography noWrap sx={{letterSpacing: -0.25, color: 'text.secondary', fontSize: 15, marginLeft: '8px'}}>{dayjs(post.created_at).format('DD.MM.YYYY')}</Typography>
           </Box>
-          <Box sx={{display: 'flex', alignItems: 'center'}}>
-            <Typography noWrap sx={{ letterSpacing: -0.25, color: 'text.secondary', fontSize: 18, marginLeft: '10px' }}>
-              Comments: <b>{post.commentCount ?? 0}</b>
-            </Typography>
-          </Box>
         </Box>
         <Button variant="text" onClick={() => navigate(`/posts/${post._id}`)} sx={{color: 'green', fontSize: '16px', display: 'flex', justifyContent: 'start', wordWrap: 'break-word', '&:hover': {color: 'rgb(49,172,239)'}, marginTop: '10px'}}>{post.title}</Button>
         <Typography noWrap sx={{letterSpacing: -0.25, color: 'text.secondary', fontSize: 18, marginLeft: '10px'}}>By: <b>{post.user.username}</b></Typography>
+        <Box sx={{marginLeft: 'auto', display: 'flex', alignItems: 'center'}}>
+          <CommentIcon/>:
+          <Typography noWrap sx={{letterSpacing: -0.25, color: 'text.secondary', fontSize: 15, marginLeft: '8px'}}><b>{post.commentCount ?? 0}</b></Typography>
+        </Box>
       </CardContent>
     </Card>
   );
