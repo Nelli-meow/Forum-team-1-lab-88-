@@ -19,7 +19,6 @@ app.use('/comments', commentsRouter);
 app.use('/posts', postRouter);
 
 const run = async () => {
-
     await mongoose.connect(config.db);
 
     app.listen(port, () => {
