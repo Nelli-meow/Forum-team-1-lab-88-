@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Grid from '@mui/material/Grid2';
-import { Alert, TextField } from '@mui/material';
+import { Alert, Button, TextField } from '@mui/material';
 import { CommentMutation } from '../../../../types';
 
 interface Props {
@@ -53,6 +53,15 @@ const NewCommentForm: React.FC<Props> = ({onSubmit, postId}) => {
               value={comment.text}
               onChange={inputChangeHandler}
             />
+          </Grid>
+          <Grid size={12}>
+            <Button
+              type="submit"
+              loadingPosition="start"
+              variant="contained"
+            >
+              Post
+            </Button>
           </Grid>
         </Grid>
       </form>

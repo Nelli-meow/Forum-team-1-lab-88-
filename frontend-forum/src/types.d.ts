@@ -52,6 +52,7 @@ export interface PostMutation {
 
 export interface IComment {
   _id: string;
+  user: IUser;
   text: string;
 }
 

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CommentMutation, IComment } from '../../types';
+import { IComment } from '../../types';
 import axiosApi from '../../axiosApi.ts';
 
 export const getPostComment = createAsyncThunk<IComment[], string>(
@@ -10,9 +10,9 @@ export const getPostComment = createAsyncThunk<IComment[], string>(
   }
 );
 
-export const addNewComment = createAsyncThunk<void, CommentMutation>(
+export const addNewComment = createAsyncThunk<void, { text: string, post: string, token: string }>(
   'comments/addNewComment',
-  async (newComment) => {
-    await axiosApi.post('/comments', newComment);
+  async ({text, post, token}) => {
+    await axiosApi.post('/comments', {text, post}, {headers: {'Authorization': token}});
   }
 );

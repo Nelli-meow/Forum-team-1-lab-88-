@@ -10,11 +10,15 @@ import Loading from '../components/UI/Loading/Loading.tsx';
 import NewCommentForm from '../features/comments/components/NewCommentForm/NewCommentForm.tsx';
 import { CommentMutation } from '../types';
 import { addNewComment, getPostComment } from '../features/comments/commentsThunks.ts';
+import { selectAllComments } from '../features/comments/commentsSlice.ts';
+import { selectUser } from '../features/users/UsersSlice.ts';
 
 const PostContainer = () => {
   const post = useAppSelector(selectPost);
   const loading = useAppSelector(selectOneGetPostLoading);
   const dispatch = useAppDispatch();
+  const allComments = useAppSelector(selectAllComments);
+  const userFromAuth = useAppSelector(selectUser);
   const {id} = useParams();
 
   useEffect(() => {
@@ -26,8 +30,10 @@ const PostContainer = () => {
 
   const addNewCommentSubmit = async (comment: CommentMutation) => {
     if (id) {
-      await dispatch(addNewComment({...comment, post: id}));
-      await dispatch(getPostComment(id));
+      if (userFromAuth !== null) {
+        await dispatch(addNewComment({...comment, post: id, token: userFromAuth.token}));
+        await dispatch(getPostComment(id));
+      }
     }
   };
 
@@ -52,11 +58,20 @@ const PostContainer = () => {
           </Box>
           <Box sx={{padding: '10px', marginBottom: '40px'}}>
             <Typography level="h3" sx={{textAlign: 'center', margin: '20px 0'}}>Comments</Typography>
+
             <NewCommentForm onSubmit={addNewCommentSubmit} postId='' />
 
             <hr/>
 
-
+            {allComments.length > 0 ?
+              allComments.map(comment => (
+                <Box key={comment._id} sx={{margin: '10px 0', padding: '10px', border: '1px solid #ccc', borderRadius: '5px'}}>
+                  <Typography level="h4">{comment.user.username}</Typography>
+                  <Typography>{comment.text}</Typography>
+                </Box>
+              ))
+              : <Typography sx={{textAlign: 'center'}}>No comments yet</Typography>
+            }
           </Box>
         </Container>
       }
