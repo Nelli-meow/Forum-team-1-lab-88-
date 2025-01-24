@@ -42,6 +42,7 @@ export interface IPost {
   image?: string | null;
   description?: string | null;
   created_at: string;
+  commentCount: number;
 }
 
 export interface PostMutation {

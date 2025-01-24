@@ -3,6 +3,7 @@ import {Post} from "../models/Post";
 import {imagesUpload} from "../multer";
 import auth, {RequestWithUser} from "../middleware/auth";
 import mongoose from "mongoose";
+import Comment from "../models/Comment";
 
 
 export const postRouter = express.Router();
@@ -17,7 +18,8 @@ postRouter.get('/:postId', async (req, res, next) => {
             res.status(404).send({error: 'Post not found!'});
             return;
         }
-        res.send(posts);
+
+        res.status(200).send(posts);
     } catch (error) {
         next(error);
     }
@@ -51,7 +53,20 @@ postRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) 
 postRouter.get('/', async (_req, res, next) => {
     try {
         const posts = await Post.find().populate('user', 'username').sort({created_at: -1});
-        res.send(posts);
+
+        const postsWithCommentCount = await Promise.all(
+            posts.map(async (post) => {
+                const commentCount = await Comment.countDocuments({ post: post._id });
+                return {
+                    ...post.toObject(),
+                    commentCount,
+                };
+            })
+        );
+
+        console.log(postsWithCommentCount);
+
+        res.send(postsWithCommentCount);
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {
             res.status(400).send(error);
