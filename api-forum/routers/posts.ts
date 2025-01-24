@@ -50,7 +50,7 @@ postRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) 
 
 postRouter.get('/', async (_req, res, next) => {
     try {
-        const posts = await Post.find().populate('user', 'username').sort({createdAt: -1});
+        const posts = await Post.find().populate('user', 'username').sort({created_at: -1});
         res.send(posts);
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {

@@ -50,7 +50,7 @@ const Post:React.FC<Props> = ({post}) => {
           </Box>
         </Box>
         <Button variant="text" onClick={() => navigate(`/posts/${post._id}`)} sx={{color: 'green', fontSize: '16px', display: 'flex', justifyContent: 'start', wordWrap: 'break-word', '&:hover': {color: 'rgb(49,172,239)'}, marginTop: '10px'}}>{post.title}</Button>
-        <Typography noWrap sx={{letterSpacing: -0.25, color: 'text.secondary', fontSize: 18, marginLeft: '10px'}}>By: {post.user.username}</Typography>
+        <Typography noWrap sx={{letterSpacing: -0.25, color: 'text.secondary', fontSize: 18, marginLeft: '10px'}}>By: <b>{post.user.username}</b></Typography>
       </CardContent>
     </Card>
   );

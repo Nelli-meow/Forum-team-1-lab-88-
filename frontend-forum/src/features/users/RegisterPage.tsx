@@ -24,13 +24,11 @@ const RegisterPage = () => {
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
-
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
   const onSubmit =  async  (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
 
     try {
       await dispatch(register(form)).unwrap();
@@ -87,6 +85,7 @@ const RegisterPage = () => {
               id="password"
               label="Password"
               name="password"
+              type="password"
               value={form.password}
               onChange={inputChange}
               error={Boolean(getFiledError('password'))}

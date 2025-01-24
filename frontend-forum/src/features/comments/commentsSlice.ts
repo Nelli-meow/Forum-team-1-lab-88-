@@ -45,7 +45,7 @@ export const commentsSlice = createSlice({
       })
       .addCase(getPostComment.rejected, (state) => {
         state.fetchLoading = true;
-      })
+      });
   }
 });
 

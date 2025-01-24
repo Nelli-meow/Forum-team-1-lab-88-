@@ -2,6 +2,9 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Grid from '@mui/material/Grid2';
 import { Alert, Button, TextField } from '@mui/material';
 import { CommentMutation } from '../../../../types';
+import { useAppSelector } from '../../../../app/hooks.ts';
+import { selectAddLoading } from '../../commentsSlice.ts';
+import ButtonSpinner from '../../../../components/UI/ButtonSpinner/ButtonSpinner.tsx';
 
 interface Props {
   onSubmit: (comment: CommentMutation) => void;
@@ -15,6 +18,7 @@ const initialState = {
 const NewCommentForm: React.FC<Props> = ({onSubmit, postId}) => {
   const [comment, setComment] = useState(initialState);
   const [alert, setAlert] = useState<string>('');
+  const loading = useAppSelector(selectAddLoading);
 
   const submitFormHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -26,42 +30,50 @@ const NewCommentForm: React.FC<Props> = ({onSubmit, postId}) => {
 
     onSubmit({...comment, post: postId});
     setComment(initialState);
-  }
+  };
 
-  const inputChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const inputChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment({...comment, [e.target.name]: e.target.value});
-  }
+  };
 
   return (
     <>
-      <form onSubmit={submitFormHandler} >
-        <Grid container spacing={2} sx={{mx: 'auto', width: '80%'}}>
-          {
-            alert && (
-              <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
-                {alert}
-              </Alert>
-            )
-          }
-          <Grid size={12}>
-            <TextField
-              sx={{width: '100%'}}
-              variant="outlined"
-              label="Comment"
-              id="text"
-              name="text"
-              value={comment.text}
-              onChange={inputChangeHandler}
-            />
-          </Grid>
-          <Grid size={12}>
-            <Button
-              type="submit"
-              loadingPosition="start"
-              variant="contained"
-            >
-              Post
-            </Button>
+      <form
+        onSubmit={submitFormHandler}
+      >
+        <Grid container spacing={2} sx={{mx: 'auto', width: '100%'}}>
+          {alert && (
+            <Alert severity="error" sx={{mt: 3, width: '100%'}}>
+              {alert}
+            </Alert>
+          )}
+          <Grid container spacing={1} alignItems="center" size={12}>
+            <Grid size={12}>
+              <TextField
+                multiline
+                sx={{width: '100%', backgroundColor: 'rgba(249,250,251,0.91)'}}
+                variant="outlined"
+                placeholder="Comment..."
+                minRows={4}
+                label="Comment"
+                id="Comment"
+                name="text"
+                value={comment.text}
+                onChange={inputChangeHandler}
+              />
+            </Grid>
+            <Grid size={2}>
+              <Button
+                disabled={loading}
+                type="submit"
+                loadingPosition="start"
+                variant="contained"
+                sx={{width: '100%'}}
+              >
+                Post
+                {loading ? <ButtonSpinner/> : null}
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </form>

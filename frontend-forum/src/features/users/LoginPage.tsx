@@ -81,13 +81,13 @@ const LoginPage = () => {
               onChange={inputChange}
             />
           </Grid>
-
           <Grid container direction={'column'} size={12} spacing={2} sx={{mt: 3,mb: 2}}>
             <TextField
               fullWidth
               id="password"
               label="Password"
               name="password"
+              type="password"
               value={form.password}
               onChange={inputChange}
             />
