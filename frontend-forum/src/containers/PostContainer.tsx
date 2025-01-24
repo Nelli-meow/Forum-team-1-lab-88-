@@ -7,6 +7,9 @@ import { Box, Container } from '@mui/material';
 import Typography from '@mui/joy/Typography';
 import { mainApiUrl } from '../globalConstants.ts';
 import Loading from '../components/UI/Loading/Loading.tsx';
+import NewCommentForm from '../features/comments/components/NewCommentForm/NewCommentForm.tsx';
+import { CommentMutation } from '../types';
+import { addNewComment, getPostComment } from '../features/comments/commentsThunks.ts';
 
 const PostContainer = () => {
   const post = useAppSelector(selectPost);
@@ -17,8 +20,16 @@ const PostContainer = () => {
   useEffect(() => {
     if (id) {
       dispatch(getOnePost(id));
+      dispatch(getPostComment(id));
     }
   }, [dispatch, id]);
+
+  const addNewCommentSubmit = async (comment: CommentMutation) => {
+    if (id) {
+      await dispatch(addNewComment({...comment, post: id}));
+      await dispatch(getPostComment(id));
+    }
+  };
 
   return post && (
     <>
@@ -41,7 +52,11 @@ const PostContainer = () => {
           </Box>
           <Box sx={{padding: '10px', marginBottom: '40px'}}>
             <Typography level="h3" sx={{textAlign: 'center', margin: '20px 0'}}>Comments</Typography>
-            <Typography sx={{margin: '20px 10px'}}>Комментарии поста!!!</Typography>
+            <NewCommentForm onSubmit={addNewCommentSubmit} postId='' />
+
+            <hr/>
+
+
           </Box>
         </Container>
       }
